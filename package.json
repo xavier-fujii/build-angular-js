@@ -1,0 +1,17 @@
+{
+  "name": "my-own-angularjs",
+  "version": "0.1.0",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "lint": "pnpm oxlint"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "packageManager": "pnpm@10.6.0",
+  "devDependencies": {
+    "oxlint": "^0.16.9"
+  }
+}
