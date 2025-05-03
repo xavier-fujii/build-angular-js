@@ -1,17 +1,25 @@
 {
-  "name": "my-own-angularjs",
-  "version": "0.1.0",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "lint": "pnpm oxlint"
-  },
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "packageManager": "pnpm@10.6.0",
-  "devDependencies": {
-    "oxlint": "^0.16.9"
-  }
+	"name": "my-own-angularjs",
+	"version": "0.1.0",
+	"directories": {},
+	"scripts": {
+		"lint": "pnpm oxlint",
+		"test": "vitest",
+		"coverage": "vitest run --coverage",
+		"format": "biome format --write ./"
+	},
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"packageManager": "pnpm@10.6.0",
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@playwright/test": "^1.52.0",
+		"@types/node": "^22.15.3",
+		"typescript": "^5.8.3",
+		"vitest": "^3.1.2"
+	},
+	"dependencies": {
+		"es-toolkit": "^1.37.1"
+	}
 }
