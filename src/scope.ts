@@ -18,10 +18,10 @@ export class Scope {
     this.#watchers = []
   }
 
-  $watch(watchFn: Procedure, listenerFn: Procedure) {
+  $watch(watchFn: Procedure, listenerFn?: Procedure) {
     const watcher = {
       watchFn: watchFn,
-      listenerFn: listenerFn,
+      listenerFn: listenerFn ?? (() => {}),
       last: initWatchVal,
     }
     this.#watchers.push(watcher)
