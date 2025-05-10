@@ -1,41 +1,45 @@
 import { log } from "node:console"
 import type { Procedure } from "../types/misc"
 
+// maybe use a symbol?
+function initWatchVal() {}
+
 type Watcher = {
   watchFn: Procedure
   listenerFn: Procedure
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  [x: string]: any
+  last: any
 }
 
 export class Scope {
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   [x: string]: any
-  $$watchers: Watcher[]
+  #watchers: Watcher[]
 
   constructor() {
-    this.$$watchers = []
+    this.#watchers = []
   }
 
   $watch(watchFn: Procedure, listenerFn: Procedure) {
     const watcher = {
       watchFn: watchFn,
       listenerFn: listenerFn,
+      last: initWatchVal,
     }
-    this.$$watchers.push(watcher)
+    this.#watchers.push(watcher)
   }
 
   $digest() {
-    // biome-ignore lint/suspicious/noImplicitAnyLet: <explanation>
     let newValue
-    // biome-ignore lint/suspicious/noImplicitAnyLet: <explanation>
     let oldValue
-    for (const watcher of this.$$watchers) {
+    for (const watcher of this.#watchers) {
       newValue = watcher.watchFn(this)
       oldValue = watcher.last
       if (newValue !== oldValue) {
         watcher.last = newValue
-        watcher.listenerFn(newValue, oldValue, this)
+        watcher.listenerFn(
+          newValue,
+          oldValue === initWatchVal ? newValue : oldValue,
+          this,
+        )
       }
     }
   }

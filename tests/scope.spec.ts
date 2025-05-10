@@ -43,9 +43,8 @@ describe("Scope", () => {
       scope.counter = 0
 
       scope.$watch(
-        () => scope.someValue,
+        (scope) => scope.someValue,
         (newValue, oldValue, _scope) => {
-          console.log("_scope", _scope)
           _scope.counter++
         },
       )
@@ -63,6 +62,22 @@ describe("Scope", () => {
 
       scope.$digest()
       expect(scope.counter).toBe(2)
+    })
+
+    it("calls listner with new value as old value the first time", () => {
+      scope.someValue = 123
+      let oldValueGiven
+
+      scope.$watch(
+        (scope) => scope.someValue,
+        (newValue, oldValue, scope) => {
+          oldValueGiven = oldValue
+        },
+      )
+
+      scope.$digest()
+
+      expect(oldValueGiven).toBe(123)
     })
   })
 })
